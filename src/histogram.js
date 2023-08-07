@@ -89,8 +89,8 @@ d3.csv("./sort_by_tempmax.csv", function(dataset) {
 
         filtered_data.forEach(function(d) {
         var year = d.datetime;
-        if(countObj[year] === undefined) {
-            countObj[year] = 0;
+        if (countObj[year] === undefined) {
+            countObj[year] = 1;
         } else {
             countObj[year] = countObj[year] + 1;
         }
