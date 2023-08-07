@@ -58,7 +58,7 @@ d3.csv("./Beijing.csv",
         .attr("offset", function(d) { return d.offset; })
         .attr("stop-color", function(d) { return d.color; });
 
-    // Add a clipPath: everything out of this area won't be drawn.
+
     var clip = svg.append("defs").append("svg:clipPath")
         .attr("id", "clip")
         .append("svg:rect")
@@ -67,19 +67,18 @@ d3.csv("./Beijing.csv",
         .attr("x", 0)
         .attr("y", 0);
 
-    // Add brushing
-    var brush = d3.brushX()                   // Add the brush feature using the d3.brush function
-        .extent( [ [0,0], [width,height] ] )  // initialise the brush area: start at 0,0 and finishes at width,height: it means I select the whole graph area
-        .on("end", updateChart)               // Each time the brush selection changes, trigger the 'updateChart' function
 
-    // Create the line variable: where both the line and the brush take place
+    var brush = d3.brushX()                  
+        .extent( [ [0,0], [width,height] ] )  
+        .on("end", updateChart)               
+
     var line = svg.append('g')
       .attr("clip-path", "url(#clip)")
 
-    // Add the line
+
     line.append("path")
       .datum(data)
-      .attr("class", "line")  // I add the class line to be able to modify this line later on.
+      .attr("class", "line")  
       .attr("fill", "none")
       .attr("stroke", "url(#line-gradient)")
       .attr("stroke-width", 1.5)
@@ -88,32 +87,30 @@ d3.csv("./Beijing.csv",
         .y(function(d) { return y(d.temp) })
         )
 
-    // Add the brushing
     line
       .append("g")
         .attr("class", "brush")
         .call(brush);
 
-    // A function that set idleTimeOut to null
+
     var idleTimeout
     function idled() { idleTimeout = null; }
 
-    // A function that update the chart for given boundaries
     function updateChart() {
 
-      // What are the selected boundaries?
+
       extent = d3.event.selection
 
-      // If no selection, back to initial coordinate. Otherwise, update X axis domain
+
       if(!extent){
-        if (!idleTimeout) return idleTimeout = setTimeout(idled, 350); // This allows to wait a little bit
+        if (!idleTimeout) return idleTimeout = setTimeout(idled, 350); 
         x.domain([ 4,8])
       }else{
         x.domain([ x.invert(extent[0]), x.invert(extent[1]) ])
-        line.select(".brush").call(brush.move, null) // This remove the grey brush area as soon as the selection has been done
+        line.select(".brush").call(brush.move, null) 
       }
 
-      // Update axis and line position
+
       xAxis.transition().duration(1000).call(d3.axisBottom(x))
       line
           .select('.line')
@@ -125,7 +122,6 @@ d3.csv("./Beijing.csv",
           )
     }
 
-    // If user double click, reinitialize the chart
     svg.on("dblclick",function(){
       x.domain(d3.extent(data, function(d) { return d.datetime; }))
       xAxis.transition().call(d3.axisBottom(x))

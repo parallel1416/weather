@@ -45,8 +45,8 @@ d3.csv("./sort_by_tempmax.csv", function(dataset) {
     .range([ 0, width ])
     .domain(filtered_data.map(function(d) { return d.datetime; }))
     .padding(0.2);
-  svg.append("g")
-    .attr("transform", "translate(0," + height + ")")
+  xAxis = svg.append("g");
+    xAxis.attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x))
     .selectAll("text")
       .style("text-anchor", "middle");
@@ -55,8 +55,8 @@ d3.csv("./sort_by_tempmax.csv", function(dataset) {
   var y = d3.scaleLinear()
     .domain([0, d3.max(filtered_data, function(d) {return d.count;})])
     .range([ height, 0]);
-  svg.append("g")
-    .call(d3.axisLeft(y));
+  yAxis = svg.append("g");
+    yAxis.call(d3.axisLeft(y));
 
   // Bars
   svg.selectAll("mybar")
@@ -67,9 +67,71 @@ d3.csv("./sort_by_tempmax.csv", function(dataset) {
       .attr("y", function(d) { return y(d.count); })
       .attr("width", x.bandwidth())
       .attr("height", function(d) { return height - y(d.count); })
-      .attr("fill", "#69b3a2")
+      .attr("fill", "#d3d3d3")
     
     
     //////////////////////////////////////////////
+    d3.select("#mySlider").on("change", function(d) {
+        update(this.value)
+    })
+
+    function update(threshold){
+        var countObj = {};
+
+        filtered_data = dataset.filter(function(d, i){return i < threshold * length / 100;})
+
+        filtered_data.forEach(function(d) {
+        var year = d.datetime;
+        if(countObj[year] === undefined) {
+            countObj[year] = 0;
+        } else {
+            countObj[year] = countObj[year] + 1;
+        }
+        });
+ 
+        filtered_data.forEach(function(d) {
+        var year = d.datetime;
+        d.count = countObj[year];
+        });
+
+
+        // sort data
+        filtered_data.sort(function(b, a) {
+            return a.count - b.count;
+        });
+
+
+        // X axis
+        var x = d3.scaleBand()
+            .range([ 0, width ])
+            .domain(filtered_data.map(function(d) { return d.datetime; }))
+            .padding(0.2);
+        xAxis.transition()
+        .duration(1000)
+        .call(d3.axisBottom(x));
+
+        // Update Y axis
+        y.domain([0, d3.max(filtered_data, function(d) {return d.count;})]);
+        yAxis.transition()
+        .duration(1000)
+        .call(d3.axisLeft(y));
+
+        // Bars
+        tmp = svg.selectAll("mybar")
+            .data(filtered_data);
+            tmp.enter()
+            .append("rect")
+            .merge(tmp)
+            .transition()
+            .duration(1000)
+            .attr("x", function(d) { return x(d.datetime); })
+            .attr("y", function(d) { return y(d.count); })
+            .attr()
+            .attr("width", x.bandwidth())
+            .attr("height", function(d) { return height - y(d.count); })
+            .attr("fill", "#d3d3d3")
+
+        tmp.exit().remove()
+    }
     
 });
