@@ -59,15 +59,22 @@ d3.csv("./sort_by_tempmax.csv", function(dataset) {
     yAxis.call(d3.axisLeft(y));
 
   // Bars
-  svg.selectAll("mybar")
+  svg.selectAll("rect")
     .data(filtered_data)
     .enter()
     .append("rect")
-      .attr("x", function(d) { return x(d.datetime); })
-      .attr("y", function(d) { return y(d.count); })
-      .attr("width", x.bandwidth())
-      .attr("height", function(d) { return height - y(d.count); })
-      .attr("fill", "#d3d3d3")
+    .attr("x", function(d) { return x(d.datetime); })
+    .attr("y", function(d) { return y(d.count); })
+    .attr("width", x.bandwidth())
+    .attr("height", function(d) { return height - y(d.count); })
+    .attr("fill", "#d3d3d3")
+
+    svg
+      .append("text")
+      .attr("text-anchor", "start")
+      .attr("y", -10)
+      .attr("x", -30)
+      .text(function(d){ return('Days')})
     
     
     //////////////////////////////////////////////
@@ -78,7 +85,7 @@ d3.csv("./sort_by_tempmax.csv", function(dataset) {
     function update(threshold){
         var countObj = {};
 
-        filtered_data = dataset.filter(function(d, i){return i < threshold * length / 100;})
+        filtered_data = dataset.filter(function(d, i){return i < threshold * length / 1000;})
 
         filtered_data.forEach(function(d) {
         var year = d.datetime;
@@ -101,7 +108,7 @@ d3.csv("./sort_by_tempmax.csv", function(dataset) {
         });
 
 
-        // X axis
+        // Update X axis
         var x = d3.scaleBand()
             .range([ 0, width ])
             .domain(filtered_data.map(function(d) { return d.datetime; }))
@@ -117,21 +124,24 @@ d3.csv("./sort_by_tempmax.csv", function(dataset) {
         .call(d3.axisLeft(y));
 
         // Bars
-        tmp = svg.selectAll("mybar")
+        tmp = svg.selectAll("rect")
             .data(filtered_data);
-            tmp.enter()
-            .append("rect")
-            .merge(tmp)
-            .transition()
-            .duration(1000)
-            .attr("x", function(d) { return x(d.datetime); })
-            .attr("y", function(d) { return y(d.count); })
-            .attr()
-            .attr("width", x.bandwidth())
-            .attr("height", function(d) { return height - y(d.count); })
-            .attr("fill", "#d3d3d3")
 
         tmp.exit().remove()
+
+        
+        tmp.enter()
+        .append("rect")
+        .merge(tmp)
+        .transition()
+        .duration(1000)
+        .attr("x", function(d) { return x(d.datetime); })
+        .attr("y", function(d) { return y(d.count); })
+        .attr("width", x.bandwidth())
+        .attr("height", function(d) { return height - y(d.count); })
+        .attr("fill", "#d3d3d3")
+
+        
     }
     
 });
