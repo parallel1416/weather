@@ -1,13 +1,12 @@
 import './App.css';
 import React from 'react';
 import clsx from "clsx";
-import {makeStyles} from "@material-ui/core";
 import MainView from "./MainView";
 import ControlPanel from "./ControlPanel";
 import DetailView from "./DetailView";
 
 
-function App() {
+export default function App() {
   return <div>
       <div class="controlPanel"><ControlPanel/></div>
       <div class="mainView"><MainView/></div>
@@ -15,4 +14,4 @@ function App() {
   </div>;
 }
 
-export default App;
+
