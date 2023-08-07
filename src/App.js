@@ -1,25 +1,18 @@
-import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+import clsx from "clsx";
+import {makeStyles} from "@material-ui/core";
+import MainView from "./MainView";
+import ControlPanel from "./ControlPanel";
+import DetailView from "./DetailView";
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  return <div>
+      <div class="controlPanel"><ControlPanel/></div>
+      <div class="mainView"><MainView/></div>
+      <div class="detailView"><DetailView/></div>
+  </div>;
 }
 
 export default App;
