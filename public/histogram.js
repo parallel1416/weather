@@ -1,22 +1,26 @@
-var margin = {top: 100, right: 30, bottom: 30, left: 100},
-    width = 760 - margin.left - margin.right,
-    height = 1000 - margin.top - margin.bottom;
+////////////////basic layout//////////////////
+var margin = {top: 30, right: 30, bottom: 70, left: 60},
+    width = 460 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
 
 var svg = d3.select("#histogram")
-.append("svg")
+  .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
-.append("g")
+  .append("g")
     .attr("transform",
-        "translate(" + margin.left + "," + margin.top + ")");
+          "translate(" + margin.left + "," + margin.top + ")");
 
 d3.csv("./sort_by_tempmax.csv", function(dataset) {
 
-        // define count object that holds count for each city
+    //////////preprocess the dataset////////////
+    const length = 3867;
+    var THRESHOLD_RATIO = 0.1;
     var countObj = {};
 
-    // count how much each city occurs in list and store in countObj
-    dataset.forEach(function(d) {
+    filtered_data = dataset.filter(function(d, i){return i < THRESHOLD_RATIO * length;})
+
+    filtered_data.forEach(function(d) {
         var year = d.datetime;
         if(countObj[year] === undefined) {
             countObj[year] = 0;
@@ -24,39 +28,48 @@ d3.csv("./sort_by_tempmax.csv", function(dataset) {
             countObj[year] = countObj[year] + 1;
         }
     });
-    // now store the count in each data member
-    dataset.forEach(function(d) {
+ 
+    filtered_data.forEach(function(d) {
         var year = d.datetime;
         d.count = countObj[year];
     });
 
-    /////////////////////////////////////////////////////////
-    var x = d3.scaleTime()
-      .domain(d3.extent(dataset, function(d) { return d.datetime; }))
-      .range([ 0, width ]);
-    xAxis = svg.append("g")
-      .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x));
 
-      var y = d3.scaleLinear()
-      .domain([0, d3.max(dataset, function(d) { return +d.count; })])
-      .range([ height, 0 ]);
-    yAxis = svg.append("g")
-      .call(d3.axisLeft(y));
+    // sort data
+    filtered_data.sort(function(b, a) {
+    return a.count - b.count;
+  });
 
+  // X axis
+  var x = d3.scaleBand()
+    .range([ 0, width ])
+    .domain(filtered_data.map(function(d) { return d.datetime; }))
+    .padding(0.2);
+  svg.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x))
+    .selectAll("text")
+      .style("text-anchor", "middle");
 
-    svg.append('g')
-        .attr('class', 'x axis')
-        .attr('transform', 'translate(0,' + height + ")")
-        .call(xAxis);
-    svg.append('g')
-        .attr('class', 'y axis')
-        .call(yAxis)
-        .append('text')
-        .attr('transform', 'rotate(-90)')
-        .attr('y', 60)
-        .attr('dy', '.71em')
-        .style('text-anchor', 'end');
+  // Add Y axis
+  var y = d3.scaleLinear()
+    .domain([0, d3.max(filtered_data, function(d) {return d.count;})])
+    .range([ height, 0]);
+  svg.append("g")
+    .call(d3.axisLeft(y));
+
+  // Bars
+  svg.selectAll("mybar")
+    .data(filtered_data)
+    .enter()
+    .append("rect")
+      .attr("x", function(d) { return x(d.datetime); })
+      .attr("y", function(d) { return y(d.count); })
+      .attr("width", x.bandwidth())
+      .attr("height", function(d) { return height - y(d.count); })
+      .attr("fill", "#69b3a2")
+    
+    
     //////////////////////////////////////////////
     
 });

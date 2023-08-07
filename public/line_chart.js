@@ -1,10 +1,9 @@
-// set the dimensions and margins of the graph
+//edit the variable below to try different layouts
 var margin = {top: 100, right: 30, bottom: 30, left: 100},
     width = 760 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
 
-// append the svg object to the body of the page
-var svg = d3.select("#my_dataviz")
+var svg = d3.select("#line_chart")
   .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -12,18 +11,14 @@ var svg = d3.select("#my_dataviz")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
-//Read the data
 d3.csv("./Beijing.csv",
 
-  // When reading the csv, I must format variables:
   function(d){
     return { datetime : d3.timeParse("%Y-%m-%d")(d.datetime), temp : d.temp }
   },
 
-  // Now I can use this dataset:
   function(data) {
 
-    // Add X axis --> it is a date format
     var x = d3.scaleTime()
       .domain(d3.extent(data, function(d) { return d.datetime; }))
       .range([ 0, width ]);
@@ -31,15 +26,20 @@ d3.csv("./Beijing.csv",
       .attr("transform", "translate(0," + height + ")")
       .call(d3.axisBottom(x));
     
-
     const max = d3.max(data, function(d) { return +d.value; })
 
-    // Add Y axis
     var y = d3.scaleLinear()
       .domain([d3.min(data, function(d) { return +d.temp; }), d3.max(data, function(d) { return +d.temp; })])
       .range([ height, 0 ]);
     yAxis = svg.append("g")
       .call(d3.axisLeft(y));
+
+    svg
+      .append("text")
+      .attr("text-anchor", "start")
+      .attr("y", -5)
+      .attr("x", -50)
+      .text(function(d){ return('Temperature(°C)')})
 
     svg.append("linearGradient")
       .attr("id", "line-gradient")
@@ -53,7 +53,8 @@ d3.csv("./Beijing.csv",
           {offset: "0%", color: "blue"},
           {offset: "100%", color: "red"}
         ])
-      .enter().append("stop")
+      .enter()
+      .append("stop")
         .attr("offset", function(d) { return d.offset; })
         .attr("stop-color", function(d) { return d.color; });
 
@@ -136,5 +137,4 @@ d3.csv("./Beijing.csv",
           .y(function(d) { return y(d.temp) })
       )
     });
-
 });
