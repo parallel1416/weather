@@ -64,7 +64,7 @@ const LineChart = (props) => {
           .attr("x1", 0)
           .attr("y1", y(0))
           .attr("x2", 0)
-          .attr("y2", y(max))
+          .attr("y2", y(30))
           .selectAll("stop")
             .data([
               {offset: "0%", color: "blue"},
