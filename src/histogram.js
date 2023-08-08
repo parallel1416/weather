@@ -45,7 +45,7 @@ const Histogram = (props) => {
 
         // sort data
         filtered_data.sort(function(b, a) {
-        return a.count - b.count;
+        return a.datetime - b.datetime;
         });
 
         // X axis
@@ -112,7 +112,7 @@ const Histogram = (props) => {
 
             // sort data
             filtered_data.sort(function(b, a) {
-                return a.count - b.count;
+                return a.datetime - b.datetime;
             });
 
 
