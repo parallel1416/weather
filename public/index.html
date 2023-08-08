@@ -3,14 +3,36 @@
 <meta charset="utf-8">
 
 <head>
-  <script src="lib/d3.js"></script>
 </head>
 
 
 <body>
 
-  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="ControlPanel"></div>
+
+  <div id="line_chart"></div>
+
   <div id="root"></div>
+
+
+
+  <script src="../src/ControlPanel.js"></script>
+
+  <!--try comment each line below to see different chart-->
+  <!--
+  <script src="line_chart.js"></script>
+      
+  -->
+
+  <!--these two components are together as a whole for the interactive histogram-->
+  
+  <!--
+
+<script src="histogram.js"></script>
+  
+  -->
+  <input type="range" name="mySlider" id=slider 
+  min="10" max="100" value="50" oninput="rangeValue.innerText = this.value / 1000"><p id="rangeValue">0.05</p>
 
 </body>
 </html>

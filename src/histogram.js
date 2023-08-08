@@ -86,10 +86,10 @@ const Histogram = (props) => {
 
 
         //////////////////////////////////////////////
-        d3.select("#mySlider").on("change", function(d) {
+        d3.select("#slider").on("change", function(d) {
             update(this.value)
         })
-
+        //////////////////////////////////////////////
         function update(threshold){
             var countObj = {};
 
