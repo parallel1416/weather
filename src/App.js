@@ -5,8 +5,28 @@ import { styled } from "@mui/system";
 import MainView from "./MainView";
 import ControlPanel from "./ControlPanel";
 import DetailView from "./DetailView";
+import dayjs from 'dayjs';
+import { DateRangePickerValue } from './ControlPanel';
+import { DemoItem } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
 
-const VideoBackground = ({dimension}) => {
+export function DateRangePickerValue({handleDate}) {
+
+  return (
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DemoItem component="DateRangePicker">
+        <DateRangePicker
+          value={date}
+           onChange={(newDate) => setDate(newDate)}
+        />
+      </DemoItem>
+    </LocalizationProvider>
+  );
+}
+
+export function VideoBackground ({dimension}) {
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -86,10 +106,15 @@ export default function App() {
   const [startyear, setStartyear] = React.useState(2013);
   const [endyear, setEndyear] = React.useState(2023);
   const [dimension, setDimension]=React.useState(1);
+  const [date, setDate] = React.useState([
+    dayjs('2013-01-01'),
+    dayjs('2023-08-01'),
+  ]);
   const classes = useStyles();
   return (
     <div className={classes.root}>
     <VideoBackground dimension={dimension}/>
+    <DateRangePickerValue handleDate={setDate}/>
     <div className={clsx(classes.view, classes.controlPanel)}><ControlPanel handleToggle={setDimension} handlestChange={setStartyear} handleedChange={setEndyear}/></div>
     <div className={clsx(classes.view, classes.mainView)}><MainView startyear={startyear} endyear={endyear} dimension={dimension}/></div>
     <div className={clsx(classes.view, classes.detailView)}><DetailView /></div>
