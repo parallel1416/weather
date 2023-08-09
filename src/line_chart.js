@@ -10,7 +10,7 @@ const LineChart = (props) => {
         width = 760 - margin.left - margin.right,
         height = 400 - margin.top - margin.bottom;
 
-    var svg = d3.select("#line_chart")
+    var svg = d3.select("#root")
       .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
@@ -18,7 +18,7 @@ const LineChart = (props) => {
         .attr("transform",
               "translate(" + margin.left + "," + margin.top + ")");
 
-              ///////////////PROMISE_RELATED PROBLEM HERE/////////////////////
+
     d3.csv("/Beijing.csv").then(
     /*
       function(d){
