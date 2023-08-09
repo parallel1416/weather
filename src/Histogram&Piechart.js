@@ -2,9 +2,8 @@ import React, { useRef, useEffect } from "react";
 import * as d3 from 'd3' 
 import { Box } from "@mui/system";
 
-const Histogram = (props) => {
+const Histogram_and_Piechart = (props) => {
     const svgRef = useRef(null);
-
     useEffect(() => {
 
         ////////////////basic layout//////////////////
@@ -32,7 +31,7 @@ const Histogram = (props) => {
         filtered_data.forEach(function(d) {
             var year = d.datetime;
             if(countObj[year] === undefined) {
-                countObj[year] = 0;
+                countObj[year] = 1;
             } else {
                 countObj[year] = countObj[year] + 1;
             }
@@ -84,6 +83,62 @@ const Histogram = (props) => {
         .attr("y", -10)
         .attr("x", -30)
         .text(function(d){ return('Days')})
+
+        /////////////
+        //Try PieChart
+        //////////////
+        var width2 = 450,
+        height2 = 450,
+        margin2 = 40;
+        var radius = Math.min(width2, height2) / 2 - margin2
+
+        var svg2 = d3.select("#root")
+        .append("svg")
+        .attr("width", width2)
+        .attr("height", height2)
+        .append("g")
+        .attr("transform",
+        `translate(${width2/2}, ${height2/2})`);
+
+        
+        var color = d3.scaleOrdinal()
+                        .domain([2013,2023])
+                        .range(d3.schemeSpectral[11]);
+
+        var pie = d3.pie()
+        .value(function(d) {return d[1]; })
+        .sort(function(a, b) { return d3.ascending(a.key, b.key);} ) 
+        var data_ready = pie(Object.entries(countObj))
+    
+        // map to data
+        var u = svg2.selectAll("path")
+        .data(data_ready)
+    
+        // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
+        var arcGenerator = d3.arc()
+        .innerRadius(0)
+        .outerRadius(radius)
+
+        u
+        .join('path')
+        .transition()
+        .duration(1000)
+        .attr('d', arcGenerator)
+        .attr('fill', function(d){ return(color(d.data[0])) })
+        .attr("stroke", "black")
+        .style("stroke-width", "2px")
+        .style("opacity", 1)
+
+        ///add labels
+        svg2
+        .selectAll('mySlices')
+        .data(data_ready)
+        .join('text')
+        .text(function(d){ return d.data[0]})
+        .attr("transform", function(d) { return `translate(${arcGenerator.centroid(d)})`})
+        .attr("id","time")
+        .style("text-anchor", "middle")
+        .style("font-size", 17)
 
 
         //////////////////////////////////////////////
@@ -149,6 +204,45 @@ const Histogram = (props) => {
             .attr("width", x.bandwidth())
             .attr("height", function(d) { return height - y(d.count); })
             .attr("fill", "#08def1")    
+
+            var color = d3.scaleOrdinal()
+                        .domain([2013,2023])
+                        .range(d3.schemeSpectral[11]);
+
+        var pie = d3.pie()
+        .value(function(d) {return d[1]; })
+        .sort(function(a, b) { return d3.ascending(a.key, b.key);} ) 
+        var data_ready = pie(Object.entries(countObj))
+    
+        // map to data
+        var u = svg2.selectAll("path")
+        .data(data_ready)
+        
+        svg2.selectAll('#time').remove();
+        // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
+        
+        u
+        .join('path')
+        .transition()
+        .duration(1000)
+        .attr('d', arcGenerator)
+        .attr('fill', function(d){ return(color(d.data[0])) })
+        .attr("stroke", "black")
+        .style("stroke-width", "2px")
+        .style("opacity", 1)
+
+
+        svg2
+        .selectAll('mySlices')
+        .data(data_ready)
+        .join('text')
+        .transition()
+        .duration(1000)
+        .text(function(d){ return d.data[0]})
+        .attr("transform", function(d) { return `translate(${arcGenerator.centroid(d)})`})
+        .attr("id","time")
+        .style("text-anchor", "middle")
+        .style("font-size", 17)
         }
         });
 
@@ -160,4 +254,4 @@ const Histogram = (props) => {
 
 };
 
-export default Histogram;
+export default Histogram_and_Piechart;
