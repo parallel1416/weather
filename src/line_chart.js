@@ -5,6 +5,11 @@ const LineChart = (props) => {
   const svgRef = useRef(null);
 
   useEffect(() => {
+    //////year range selection : pass in the props to re-render//////
+    var start_year = 2018, end_year = 2023;
+    ////////////////////////////////////////////////////////////////
+
+
         //edit the variable below to try different layouts
     var margin = {top: 100, right: 30, bottom: 30, left: 100},
         width = 760 - margin.left - margin.right,
@@ -34,15 +39,17 @@ const LineChart = (props) => {
             d.date = d3.timeParse("%Y-%m-%d")(d.datetime)
           }
         )
-        
+
+        var filtered_data = data.filter(function(d) {return d.date >= new Date(`${start_year}-01-01`) && d.date <= new Date(`${end_year}-01-01`)})
+
         var x = d3.scaleTime()
-          .domain((d3.extent(data, function(d) { return d.date; })))
+          .domain((d3.extent(filtered_data, function(d) { return d.date; })))
           .range([ 0, width ]);
         var xAxis = svg.append("g")
           .attr("transform", "translate(0," + height + ")")
           .call(d3.axisBottom(x));
         
-        const max = d3.max(data, d=>d.tempmax)
+        const max = d3.max(filtered_data, d=>d.tempmax)
 
         var y = d3.scaleLinear()
           .domain([-15, 42])
@@ -95,7 +102,7 @@ const LineChart = (props) => {
 
 
         line.append("path")
-          .datum(data)
+          .datum(filtered_data)
           .attr("class", "line")  
           .attr("fill", "none")
           .attr("stroke", "url(#line-gradient)")
@@ -141,7 +148,7 @@ const LineChart = (props) => {
         }
 
         svg.on("dblclick",function(){
-          x.domain(d3.extent(data, function(d) { return d.date; }))
+          x.domain(d3.extent(filtered_data, function(d) { return d.date; }))
           xAxis.transition().call(d3.axisBottom(x))
           line
             .select('.line')
