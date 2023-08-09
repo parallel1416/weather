@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useState} from 'react';
 import Button from "@mui/material/Button";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -8,14 +8,12 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Box from '@mui/material/Box';
 
-export function TimeSelector() {
-  const [startyear, setStartyear] = React.useState('');
-  const [endyear, setEndyear] = React.useState('');
+export const TimeSelector=({setStyear, setEdyear})=> {
   const handlestChange = (event) => {
-    setStartyear(event.target.value);
+    setStyear(event.target.value);
   };
   const handleedChange = (event) => {
-    setEndyear(event.target.value);
+    setEdyear(event.target.value);
   };
   return (
     <div>
@@ -25,7 +23,7 @@ export function TimeSelector() {
         <Select
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
-          value={startyear}
+          //value={startyear}
           onChange={handlestChange}
           label="Year"
         >
@@ -51,7 +49,7 @@ export function TimeSelector() {
         <Select
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
-          value={endyear}
+          //value={endyear}
           onChange={handleedChange}
           label="Year"
         >
@@ -75,10 +73,10 @@ export function TimeSelector() {
   );
 }
 
-function ControlPanel(){
-    const [dimension, setDimension]=React.useState('');
-    const handleToggle=(event, newDimension)=>{
-        setDimension(newDimension);
+const ControlPanel=({setStartyear,setEndyear,setDimension})=>{
+  
+    const handleToggle=(event)=>{
+        setDimension(event.target.value);
     };
     return (<>
         <Box
@@ -88,16 +86,16 @@ function ControlPanel(){
         </div>
         <ToggleButtonGroup
             orientation='vertical'
-            value={dimension}
+            //value={dimension}
             exclusive
             onChange={handleToggle}
             >
-            <ToggleButton value="tempmax">Temperature Max</ToggleButton>
-            <ToggleButton value="tempflux">Temperature Flux</ToggleButton>
-            <ToggleButton value="precip">Precipitation</ToggleButton>
-            <ToggleButton value="conditions">Conditions</ToggleButton>
+            <ToggleButton value={1}>Temperature Max</ToggleButton>
+            <ToggleButton value={2}>Temperature Flux</ToggleButton>
+            <ToggleButton value={3}>Precipitation</ToggleButton>
+            <ToggleButton value={4}>Conditions</ToggleButton>
         </ToggleButtonGroup>
-        <TimeSelector/>
+        <TimeSelector setStyear={setStartyear} setEdyear={setEndyear}/>
         <div><Button variant='contained'>Render</Button></div>
         </Box>
         </>);
