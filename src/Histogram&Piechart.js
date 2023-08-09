@@ -5,8 +5,11 @@ import { Box } from "@mui/system";
 const Histogram_and_Piechart = (props) => {
     const svgRef = useRef(null);
     useEffect(() => {
+        //////year range selection : pass in the props to re-render//////
+        var start_year = 2018, end_year = 2023;
+        ////////////////////////////////////////////////////////////////
 
-        ////////////////basic layout//////////////////
+        ////////////////basic layout : edit this for better design//////////////////
         var margin = {top: 30, right: 30, bottom: 70, left: 60},
         width = 460 - margin.left - margin.right,
         height = 400 - margin.top - margin.bottom;
@@ -26,7 +29,9 @@ const Histogram_and_Piechart = (props) => {
         var THRESHOLD_RATIO = 0.1;
         var countObj = {};
 
-        var filtered_data = dataset.filter(function(d, i){return i < THRESHOLD_RATIO * length;})
+        var filtered_data_by_year = dataset.filter(function(d) {return d.datetime >= start_year && d.datetime <= end_year})
+
+        var filtered_data = filtered_data_by_year.filter(function(d, i){return i < THRESHOLD_RATIO * length;})
 
         filtered_data.forEach(function(d) {
             var year = d.datetime;
@@ -149,7 +154,9 @@ const Histogram_and_Piechart = (props) => {
         function update(threshold){
             var countObj = {};
 
-            filtered_data = dataset.filter(function(d, i){return i < threshold * length / 1000;})
+            var filtered_data_by_year = dataset.filter(function(d) {return d.datetime >= start_year && d.datetime <= end_year})
+
+            filtered_data = filtered_data_by_year.filter(function(d, i){return i < threshold * length / 1000;})
 
             filtered_data.forEach(function(d) {
             var year = d.datetime;
