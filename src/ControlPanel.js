@@ -8,13 +8,9 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Box from '@mui/material/Box';
 
+
 export const TimeSelector=({setStyear, setEdyear})=> {
-  const handlestChange = (event) => {
-    setStyear(event.target.value);
-  };
-  const handleedChange = (event) => {
-    setEdyear(event.target.value);
-  };
+
   return (
     <div>
         From:
@@ -24,7 +20,7 @@ export const TimeSelector=({setStyear, setEdyear})=> {
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
           //value={startyear}
-          onChange={handlestChange}
+          onChange={(e) => setStyear(e.target.value)}
           label="Year"
         >
           <MenuItem value="">
@@ -50,7 +46,7 @@ export const TimeSelector=({setStyear, setEdyear})=> {
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
           //value={endyear}
-          onChange={handleedChange}
+          onChange={(e) => setEdyear(e.target.value)}
           label="Year"
         >
           <MenuItem value="">
@@ -73,14 +69,14 @@ export const TimeSelector=({setStyear, setEdyear})=> {
   );
 }
 
-const ControlPanel=({setStartyear,setEndyear,setDimension})=>{
-  
-    const handleToggle=(event)=>{
-        setDimension(event.target.value);
-    };
+function ControlPanel ({handleToggle, handlestChange, handleedChange}){
+
+    const handleRender=()=>{
+
+    }
     return (<>
         <Box
-            sx={{width: 400, height: 800}}>
+            sx={{}}>
         <div>
             <h3>Weather of Beijing</h3>
         </div>
@@ -88,15 +84,15 @@ const ControlPanel=({setStartyear,setEndyear,setDimension})=>{
             orientation='vertical'
             //value={dimension}
             exclusive
-            onChange={handleToggle}
+            onChange={(e) => handleToggle(e.target.value)}
             >
             <ToggleButton value={1}>Temperature Max</ToggleButton>
             <ToggleButton value={2}>Temperature Flux</ToggleButton>
             <ToggleButton value={3}>Precipitation</ToggleButton>
             <ToggleButton value={4}>Conditions</ToggleButton>
         </ToggleButtonGroup>
-        <TimeSelector setStyear={setStartyear} setEdyear={setEndyear}/>
-        <div><Button variant='contained'>Render</Button></div>
+        <TimeSelector setStyear={handlestChange} setEdyear={handleedChange}/>
+        <div><Button variant='contained' onClick={handleRender}>Render</Button></div>
         </Box>
         </>);
 }

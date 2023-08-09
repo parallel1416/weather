@@ -1,6 +1,7 @@
 import './App.css';
 import React, {useState, useRef, useEffect} from 'react';
 import clsx from "clsx";
+import { styled } from "@mui/system";
 import MainView from "./MainView";
 import ControlPanel from "./ControlPanel";
 import DetailView from "./DetailView";
@@ -11,6 +12,7 @@ const VideoBackground = ({dimension}) => {
   useEffect(() => {
     const videoElement = videoRef.current;
     videoElement.loop = true;
+    videoElement.muted =true;
     videoElement.play();
 
     return () => {
@@ -21,6 +23,7 @@ const VideoBackground = ({dimension}) => {
 
   const handleLoop = () => {
     videoRef.current.currentTime = 0;
+    videoRef.current.muted = true;
     videoRef.current.play();
   };
   const getSource=(dimension)=>{
@@ -34,30 +37,62 @@ const VideoBackground = ({dimension}) => {
   }
   return (
     <div>
-      <video ref={videoRef} onEnded={handleLoop}>
+      <video ref={videoRef} 
+        onEnded={handleLoop} 
+        autoplay="true"
+        muted="muted">
         <source src={getSource(dimension)} type="video/mp4" />
       </video>
     </div>
   );
 };
+
+const useStyles = styled(theme => ({
+  root: {
+      position: 'relative',
+      width: '100vw',
+      height: '100vh',
+      overflow: 'hidden',
+  },
+  view: {
+      border: '1px solid black',
+      borderRadius: '5px',
+  },
+  controlPanel: {
+      position: 'absolute',
+      top: 70,
+      height: 100,
+      left: 70,
+      width: 100,
+  },
+  mainView: {
+      position: 'absolute',
+      top: 70,
+      bottom: 400,
+      left: 180,
+      right: 70,
+  },
+  detailView: {
+      position: 'absolute',
+      bottom: 70,
+      height: 320,
+      left: 180,
+      right: 70,
+  },
+}))
+
 export default function App() {
 
   const [startyear, setStartyear] = React.useState(2013);
   const [endyear, setEndyear] = React.useState(2023);
   const [dimension, setDimension]=React.useState(1);
-  const setGlobalStart = (value) => {
-    setStartyear(value);
-  }
-  const setGlobalEnd = (value) =>{
-    setEndyear(value);
-  }
-  const setGlobalDim = (value) =>{
-    setDimension(value);
-  }
+  const classes = useStyles();
   return (
-    <><VideoBackground dimension={dimension}/>
-    <ControlPanel setStartyear={setGlobalStart} setEndyear={setGlobalEnd} setDimension={setGlobalDim}/>
-    <MainView startyear={startyear} endyear={endyear} dimension={dimension}/>
-    <DetailView /></>
+    <div className={classes.root}>
+    <VideoBackground dimension={dimension}/>
+    <div className={clsx(classes.view, classes.controlPanel)}><ControlPanel handleToggle={setDimension} handlestChange={setStartyear} handleedChange={setEndyear}/></div>
+    <div className={clsx(classes.view, classes.mainView)}><MainView startyear={startyear} endyear={endyear} dimension={dimension}/></div>
+    <div className={clsx(classes.view, classes.detailView)}><DetailView /></div>
+    </div>
   );
 }

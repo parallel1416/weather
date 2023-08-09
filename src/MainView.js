@@ -1,14 +1,18 @@
 import React, {useContext} from 'react';
-import Histogram_and_Piechart from "./Histogram&Piechart";
+import Histogram from "./histogram";
 import LineChart from './line_chart';
-import App from './App';
-//import Slider from '@mui/material/Slider';
+import Box from '@mui/material/Box';
 
-function MainView(){
-    return (<>
-    <Histogram_and_Piechart />
-    <LineChart />
-        </>);
+
+function MainView ({startyear, endyear, dimension}){
+    switch (dimension){
+        case 1: return <Histogram/>;
+        case 2: return <LineChart/>;
+        default: return (<Box><p>SELECT A DIMENSION TO BEGIN</p></Box>);
+    }
+        
+
+    
 }
 
 export default MainView;
