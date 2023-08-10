@@ -24,7 +24,7 @@ Data Preprocessing, Interactive LineChart of Temperature in D3.js, Interactive H
 
 #### Yihan Gao
 
-
+Interactive Linechart of Visibility in echarts.js, Interactive Linechart and Piechart of Weather Conditions in echarts.js, using echarts in React Components
 
 
 ## Some useful commands
