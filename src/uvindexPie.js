@@ -1,5 +1,6 @@
 import React from "react";
 import * as echarts from 'echarts';
+import { alignProperty } from "@mui/material/styles/cssUtils";
 
 export default class UvindexPie extends React.Component {
     constructor(props){
@@ -12,7 +13,7 @@ export default class UvindexPie extends React.Component {
         //指定图表的配置项和数据
         var option={
             title:{
-                text:'2013-2023年北京紫外线指数最高值分布年份'
+                text:'Maximal UV Index Day Count'
             },
             tooltip:{},
             legend:{
@@ -28,7 +29,7 @@ export default class UvindexPie extends React.Component {
                 }
             },
             series:[{
-                name: 'Nightingale Chart',
+                name: 'Max UV Index / day',
                 type: 'pie',
                 radius: [60, 250],
                 center: ['50%', '50%'],
@@ -90,8 +91,8 @@ export default class UvindexPie extends React.Component {
 
     render(){
         return (
-            <div>
-                <div id="ech" style={{ width: "1000px", height: "600px" }}>
+            <div alignProperty="right">
+                <div id="ech" style={{ width: "1000px", height: "600px"}}>
                 </div>
             </div>
         )

@@ -113,7 +113,7 @@ class Conditions extends React.Component{
     render(){
         return (
             <div className='ee'>
-                 <div id="main" style={{width: "600px",height:"500px"}}></div>
+                 <div id="main"></div>
             </div>
         )
     }

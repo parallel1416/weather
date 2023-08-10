@@ -4,20 +4,19 @@ import Histogram_and_Piechart from './Histogram&Piechart'
 import LineChart from './line_chart';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import dayjs from 'dayjs';
-import { DemoItem } from '@mui/x-date-pickers/internals/demo';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
+import Visibility from './visibility_echarts';
+import Uvindex from './uvindex';
+import UvindexPie from './uvindexPie';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
+import Conditions from './conditions';
 import Select from '@mui/material/Select';
 
 
 export default function App() {
 
-  const [dimension, setDimension]=useState(1);
+  const [dimension, setDimension]=useState(3);
   const [startyear, setStartyear] = useState(2013);
   const [endyear, setEndyear] = useState(2023);
   /*const [date, setDate] = useState([
@@ -31,7 +30,12 @@ export default function App() {
       break;
     case 2: 
       content=<LineChart startyear={startyear} endyear={endyear}/>;
-      console.log({dimension});
+      break;
+    case 3:
+      content=<div><Uvindex/><UvindexPie/></div>;
+      break;
+    case 4:
+      content=<Visibility/>;
       break;
     default:
       content=<Histogram_and_Piechart startyear={startyear} endyear={endyear}/>;
@@ -106,15 +110,24 @@ export default function App() {
         >
           <ToggleButton value={1}>Temperature Max</ToggleButton>
           <ToggleButton value={2}>Temperature Flux</ToggleButton>
-          <ToggleButton value={3}>Precipitation</ToggleButton>
+          <ToggleButton value={3}>Uv Index</ToggleButton>
           <ToggleButton value={4}>Conditions</ToggleButton>
         </ToggleButtonGroup>
       </div>
 
     </div>
-      <div className='column.right'>
-        {content}
+      <div className='column.middle'>
+        <Uvindex/>
+
       </div>
       </>
   );
 }
+
+/*
+        <Histogram_and_Piechart startyear={startyear} endyear={endyear}/>;
+        <UvindexPie/>
+        
+        <Visibility/>
+        <LineChart startyear={startyear} endyear={endyear}/>
+*/

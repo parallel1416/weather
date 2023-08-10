@@ -1,12 +1,12 @@
 import React, { useRef, useEffect } from "react";
 import * as d3 from 'd3' 
 
-const LineChart = ({startyear,endyear}) => {
+const LineChart = (props) => {
   const svgRef = useRef(null);
 
   useEffect(() => {
     //////year range selection : pass in the props to re-render//////
-    var start_year={startyear}, end_year={endyear};
+    var start_year = 2013, end_year = 2023;
     ////////////////////////////////////////////////////////////////
 
 
@@ -31,6 +31,7 @@ const LineChart = ({startyear,endyear}) => {
       },
     */
       
+
       (data) => {
         
         data.forEach(
@@ -159,7 +160,7 @@ const LineChart = ({startyear,endyear}) => {
         });
     });
 
-  }, [startyear, endyear, svgRef.current]);
+  }, [props.Data, svgRef.current]);
 
   return <svg ref={svgRef} />;
 };

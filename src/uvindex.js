@@ -11,7 +11,7 @@ const Uvindex = (props) => {
         height = 400 - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
-    var svg = d3.select("#uvindexDiv")
+    var svg = d3.select("#root")
       .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
@@ -164,12 +164,12 @@ const Uvindex = (props) => {
             .attr("y",-10) 
             .attr("text-anchor", "end") // 文本定位锚点在尾部
             .attr("font-size","12px")
-            .text("紫外线指数");
+            .text("UV Index");
 
         // add a title
         svg.append("g")
             .append("text")
-            .text("2013-2023年北京紫外线指数变化")
+            .text("UV Index Fluctuation")
             .attr("class","middle-mainText")
             .attr("x",320)
             .attr("y",-20)

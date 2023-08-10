@@ -6,7 +6,7 @@
 </head>
     
 <body>
-    <div id="main" style="width: 1000px; height: 600px;"></div>
+    <div id="main"></div>
 
     <script type="text/javascript">
         var myChart=echarts.init(document.getElementById('main'));
@@ -14,7 +14,7 @@
         //指定图表的配置项和数据
         var option={
             title:{
-                text:'2013-2023年北京紫外线指数最高值分布年份'
+                text:'UV Index'
             },
             tooltip:{},
             legend:{
@@ -30,7 +30,7 @@
                 }
             },
             series:[{
-                name: 'Nightingale Chart',
+                name: 'Maximal UV Index Day Count',
                 type: 'pie',
                 radius: [60, 250],
                 center: ['50%', '50%'],

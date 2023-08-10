@@ -65,7 +65,7 @@ class Visibility extends React.Component{
             ],
             series: [
                 {
-                    name: 'Fake Data',
+                    name: 'Visibility/km',
                     type: 'line',
                     symbol: 'none',
                     sampling: 'lttb',
@@ -103,4 +103,4 @@ class Visibility extends React.Component{
     }
 }
 
-export default Visibility
+export default Visibility;

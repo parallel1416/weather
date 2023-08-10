@@ -12,19 +12,23 @@
 .column {
   float: left;
   margin: 20px;
-  padding: 10px;
+  padding: 20px;
   opacity: 0.8;
   background-color: white;
-  z-index: 1;
+  height: 70vh;
+  overflow: hidden;
 }
 
 .column.middle {
-  width: 60%;
+  float: right;
+  width: auto;
   margin: 20px;
-  padding: 10px;
+  padding: 20px;
   opacity: 0.8;
   background-color: white;
-  z-index: 1;
+  height: 70vh;
+  overflow: hidden;
+  justify-content: center;
 }
  
 /* 响应式布局 - 宽度小于600px时设置上下布局 */

@@ -2,11 +2,11 @@ import React, { useRef, useEffect } from "react";
 import * as d3 from 'd3' 
 import { Box } from "@mui/system";
 
-const Histogram_and_Piechart = ({startyear,endyear}) => {
+const Histogram_and_Piechart = (props) => {
     const svgRef = useRef(null);
     useEffect(() => {
         //////year range selection : pass in the props to re-render//////
-        var start_year = {startyear}, end_year = {endyear};
+        var start_year = 2013, end_year = 2023;
         ////////////////////////////////////////////////////////////////
 
         ////////////////basic layout : edit this for better design//////////////////
@@ -30,13 +30,6 @@ const Histogram_and_Piechart = ({startyear,endyear}) => {
         var countObj = {};
 
         var filtered_data_by_year = dataset.filter(function(d) {return d.datetime >= start_year && d.datetime <= end_year})
-        /*data.forEach(
-            function (d) {
-              d.date = d3.timeParse("%Y-%m-%d")(d.datetime)
-            }
-          )
-  
-        var filtered_data_by_day = data.filter(function(d) {return d.date >= new Date(date[0]) && d.date <= new Date(date[1])})*/
 
         var filtered_data = filtered_data_by_year.filter(function(d, i){return i < THRESHOLD_RATIO * length;})
 
@@ -260,7 +253,7 @@ const Histogram_and_Piechart = ({startyear,endyear}) => {
         }
         });
 
-     }, [startyear, endyear, svgRef.current]);
+     }, [props.Data, svgRef.current]);
 
     return <Box><
         svg ref={svgRef} 
