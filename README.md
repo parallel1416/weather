@@ -11,9 +11,21 @@ This project contains miscellaneous graphs of different data dimensions of the w
 This section is the brief record of every team member's contributions. For detailed version, please refer to this repo's [commits log](https://github.com/parallel1416/weather/commits/master).
 
 #### Xing Ping
+
+
+
 #### Guanyu Zhang
+
+Data Preprocessing, Interactive LineChart of Temperature in D3.js, Interactive Histogram and Piechart of # of Highest Temperature Days in D3.js, Converting JavaScript codes into React Components
+
 #### Lingmeng Lu
+
+
+
 #### Yihan Gao
+
+
+
 
 ## Some useful commands
 
