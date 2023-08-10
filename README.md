@@ -1,10 +1,33 @@
-# Getting Started with Create React App
+# Weather of Beijing in the last decade
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a project of data visualization of weather in Beijing from 2013 to 2023, created by *[Xing Ping](https://github.com/parallel1416)* (team-leader, Peking University), in collaboration with *[Guanyu Zhang](https://github.com/TonyZhang2004)* (Tongji University), *[Lingmeng Lu](https://github.com/Lemoooooooon)* (Central South University), *[Yihan Gao](https://github.com/g111h)* (Beijing Institute of Technology), in the Data Visualization Summer Session hosted by Zhejiang University in 2023 summer.
 
-## Available Scripts
+## About
 
-In the project directory, you can run:
+This project contains miscellaneous graphs of different data dimensions of the weather of Beijing in the last decade, plotted with [D3.js](https://d3js.org/) and [ECharts](https://echartsjs.com/), combined by [React](https://react.dev/).
+
+## Contributions
+
+This section is the brief record of every team member's contributions. For detailed version, please refer to this repo's [commits log](https://github.com/parallel1416/weather/commits/master).
+
+#### Xing Ping
+
+
+
+#### Guanyu Zhang
+
+Data Preprocessing, Interactive LineChart of Temperature in D3.js, Interactive Histogram and Piechart of # of Highest Temperature Days in D3.js, Converting JavaScript codes into React Components
+
+#### Lingmeng Lu
+
+
+
+#### Yihan Gao
+
+Interactive Linechart of Visibility in echarts.js, Interactive Linechart and Piechart of Weather Conditions in echarts.js, using echarts in React Components
+
+
+## Some useful commands
 
 ### `npm start`
 
@@ -38,33 +61,3 @@ If you aren't satisfied with the build tool and configuration choices, you can `
 Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
