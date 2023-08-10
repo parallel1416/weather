@@ -5,7 +5,6 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Box from '@mui/material/Box';
 
 
-
 function ControlPanel ({handleToggle}){
 
     const handleRender=()=>{
