@@ -13,9 +13,6 @@ function ControlPanel ({handleToggle}){
     return (<>
         <Box
             sx={{}}>
-        <div>
-            <h3>Weather of Beijing</h3>
-        </div>
         <ToggleButtonGroup
             orientation='vertical'
             //value={dimension}
@@ -27,6 +24,7 @@ function ControlPanel ({handleToggle}){
             <ToggleButton value={3}>Precipitation</ToggleButton>
             <ToggleButton value={4}>Conditions</ToggleButton>
         </ToggleButtonGroup>
+        <br></br>
         <div><Button variant='contained' onClick={handleRender}>Render</Button></div>
         </Box>
         </>);

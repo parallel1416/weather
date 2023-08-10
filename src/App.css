@@ -13,37 +13,23 @@
   color: white;
 }
 
-.App-link {
-  color: #08def1;
-}
-
 .root {
   position: 'relative';
   width: '100vw';
   height: '100vh';
   overflow: 'hidden';
 }
-.view {
-  border: '1px solid black';
+.column {
+  float: left;
 }
-.controlPanel {
-  position: 'absolute';
-  top: 70;
-  height: 200;
-  left: 70;
-  width: 100;
+
+.column.middle {
+  width: 60%;
 }
-.mainView {
-  position: 'absolute';
-  top: 70;
-  bottom: 400;
-  left: 180;
-  right: 70;
-}
-.detailView {
-  position: 'absolute';
-  bottom: 70;
-  height: 320;
-  left: 180;
-  right: 70;
+ 
+/* 响应式布局 - 宽度小于600px时设置上下布局 */
+@media screen and (max-width: 600px) {
+  .column.middle {
+    width: 100%;
+  }
 }
