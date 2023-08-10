@@ -10,6 +10,11 @@ This project contains miscellaneous graphs of different data dimensions of the w
 
 This section is the brief record of every team member's contributions. For detailed version, please refer to this repo's [commits log](https://github.com/parallel1416/weather/commits/master).
 
+#### Xing Ping
+#### Guanyu Zhang
+#### Lingmeng Lu
+#### Yihan Gao
+
 ## Some useful commands
 
 ### `npm start`
