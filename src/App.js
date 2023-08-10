@@ -1,84 +1,120 @@
 import './App.css';
 import React, {useState, useRef, useEffect} from 'react';
-import clsx from "clsx";
-import { styled } from "@mui/system";
-import MainView from "./MainView";
-import ControlPanel from "./ControlPanel";
+import Histogram_and_Piechart from './Histogram&Piechart'
+import LineChart from './line_chart';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import dayjs from 'dayjs';
 import { DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
-
-
-export function VideoBackground ({dimension}) {
-  const videoRef = useRef(null);
-  useEffect(() => {
-    const videoElement = videoRef.current;
-    videoElement.loop = true;
-    videoElement.muted =true;
-    videoElement.play();
-
-    return () => {
-      videoElement.pause();
-      videoElement.removeEventListener('ended', handleLoop);
-    };
-  }, []);
-
-  const handleLoop = () => {
-    videoRef.current.currentTime = 0;
-    videoRef.current.muted = true;
-    videoRef.current.play();
-  };
-  const getSource=({dimension})=>{
-    switch(dimension){
-      case 1: return "../public/Sunny.mp4"
-      case 2: return "../public/Windy.mp4"
-      case 3: return "../public/Rainy.mp4"
-      case 4: return "../public/Cloudy.mp4"
-    }
-      
-  }
-  return (
-    <div>
-      <video ref={videoRef} 
-        onEnded={handleLoop} 
-        autoplay="true"
-        muted="muted">
-        <source src={getSource(dimension)} type="video/mp4" />
-      </video>
-    </div>
-  );
-};
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 
 export default function App() {
 
   const [dimension, setDimension]=useState(1);
-  const [date, setDate] = useState([
+  const [startyear, setStartyear] = useState(2013);
+  const [endyear, setEndyear] = useState(2023);
+  /*const [date, setDate] = useState([
     dayjs('2013-01-01'),
     dayjs('2023-08-01'),
-  ]);
+  ]);*/
+  let content;
+  switch ({dimension}){
+    case 1: 
+      content=<Histogram_and_Piechart startyear={startyear} endyear={endyear}/>;
+      break;
+    case 2: 
+      content=<LineChart startyear={startyear} endyear={endyear}/>;
+      console.log({dimension});
+      break;
+    default:
+      content=<Histogram_and_Piechart startyear={startyear} endyear={endyear}/>;
+      break;
+  }
+
 
   return (
-    <div className='root'>
-      <div><VideoBackground dimension={dimension}/></div>
-      
+    <><div className='root'>
+
       <div className='App-header'><h3>Weather of Beijing</h3></div>
       <div className='column'>
         <div>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DemoItem component="DateRangePicker">
-            <DateRangePicker
-              value={date}
-              onChange={(newDate) => setDate(newDate)}
-            />
-          </DemoItem>
-        </LocalizationProvider></div>
-        <div><ControlPanel handleToggle={setDimension}/></div>
+          From:
+          <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+            <InputLabel id="demo-simple-select-standard-label">Year</InputLabel>
+            <Select
+              labelId="demo-simple-select-standard-label"
+              id="demo-simple-select-standard"
+              value={startyear}
+              onChange={(e) => setStartyear(e.target.value)}
+              label="Year"
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value={2013}>2013</MenuItem>
+              <MenuItem value={2014}>2014</MenuItem>
+              <MenuItem value={2015}>2015</MenuItem>
+              <MenuItem value={2016}>2016</MenuItem>
+              <MenuItem value={2017}>2017</MenuItem>
+              <MenuItem value={2018}>2018</MenuItem>
+              <MenuItem value={2019}>2019</MenuItem>
+              <MenuItem value={2020}>2020</MenuItem>
+              <MenuItem value={2021}>2021</MenuItem>
+              <MenuItem value={2022}>2022</MenuItem>
+              <MenuItem value={2023}>2023</MenuItem>
+            </Select>
+          </FormControl>
+          To:
+          <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+            <InputLabel id="demo-simple-select-standard-label">Year</InputLabel>
+            <Select
+              labelId="demo-simple-select-standard-label"
+              id="demo-simple-select-standard"
+              value={endyear}
+              onChange={(e) => setEndyear(e.target.value)}
+              label="Year"
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value={2013}>2013</MenuItem>
+              <MenuItem value={2014}>2014</MenuItem>
+              <MenuItem value={2015}>2015</MenuItem>
+              <MenuItem value={2016}>2016</MenuItem>
+              <MenuItem value={2017}>2017</MenuItem>
+              <MenuItem value={2018}>2018</MenuItem>
+              <MenuItem value={2019}>2019</MenuItem>
+              <MenuItem value={2020}>2020</MenuItem>
+              <MenuItem value={2021}>2021</MenuItem>
+              <MenuItem value={2022}>2022</MenuItem>
+              <MenuItem value={2023}>2023</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
+        <ToggleButtonGroup
+          orientation='vertical'
+          value={dimension}
+          exclusive
+          onChange={(e) => setDimension(e.target.value)}
+        >
+          <ToggleButton value={1}>Temperature Max</ToggleButton>
+          <ToggleButton value={2}>Temperature Flux</ToggleButton>
+          <ToggleButton value={3}>Precipitation</ToggleButton>
+          <ToggleButton value={4}>Conditions</ToggleButton>
+        </ToggleButtonGroup>
       </div>
-      
-      <div className='column.right'><MainView date={date} dimension={dimension}/></div>
+
     </div>
+      <div className='column.right'>
+        {content}
+      </div>
+      </>
   );
 }

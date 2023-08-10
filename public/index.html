@@ -3,34 +3,34 @@
 <meta charset="utf-8">
 
 <head>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    #myVideo {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      min-width: 100%; 
+      min-height: 100%;
+      z-index: -1;
+    }
+    </style>
 </head>
 
 
 <body>
 
-  <div id="ControlPanel"></div>
-
-  <div id="line_chart"></div>
+  <video autoplay muted loop id="myVideo" >
+    <source src="./Sunny.mp4" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
 
   <div id="root"></div>
 
-
-
-  <script></script>
-
-  <!--try comment each line below to see different chart-->
-  <!--
-  <script src="line_chart.js"></script>
-      
-  -->
-
-  <!--these two components are together as a whole for the interactive histogram-->
-  
-  <!--
-
-<script src="histogram.js"></script>
-  
-  -->
+  <script>
+    var video = document.getElementById("myVideo");
+    </script>
   <input type="range" name="mySlider" id=slider 
   min="10" max="100" value="50" oninput="rangeValue.innerText = this.value / 1000"><p id="rangeValue">0.05</p>
 

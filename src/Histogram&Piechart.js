@@ -2,11 +2,11 @@ import React, { useRef, useEffect } from "react";
 import * as d3 from 'd3' 
 import { Box } from "@mui/system";
 
-const Histogram_and_Piechart = ({date}) => {
+const Histogram_and_Piechart = ({startyear,endyear}) => {
     const svgRef = useRef(null);
     useEffect(() => {
         //////year range selection : pass in the props to re-render//////
-        var start_year = 2018, end_year = 2023;
+        var start_year = {startyear}, end_year = {endyear};
         ////////////////////////////////////////////////////////////////
 
         ////////////////basic layout : edit this for better design//////////////////
@@ -29,16 +29,16 @@ const Histogram_and_Piechart = ({date}) => {
         var THRESHOLD_RATIO = 0.1;
         var countObj = {};
 
-        //var filtered_data_by_year = dataset.filter(function(d) {return d.datetime >= start_year && d.datetime <= end_year})
-        dataset.forEach(
+        var filtered_data_by_year = dataset.filter(function(d) {return d.datetime >= start_year && d.datetime <= end_year})
+        /*data.forEach(
             function (d) {
               d.date = d3.timeParse("%Y-%m-%d")(d.datetime)
             }
           )
   
-        var filtered_data_by_day = dataset.filter(function(d) {return d.date >= new Date(date[0]) && d.date <= new Date(date[1])})
+        var filtered_data_by_day = data.filter(function(d) {return d.date >= new Date(date[0]) && d.date <= new Date(date[1])})*/
 
-        var filtered_data = filtered_data_by_day.filter(function(d, i){return i < THRESHOLD_RATIO * length;})
+        var filtered_data = filtered_data_by_year.filter(function(d, i){return i < THRESHOLD_RATIO * length;})
 
         filtered_data.forEach(function(d) {
             var year = d.datetime;
@@ -161,9 +161,9 @@ const Histogram_and_Piechart = ({date}) => {
         function update(threshold){
             var countObj = {};
 
-            var filtered_data_by_day = dataset.filter(function(d) {return d.date >= new Date(date[0]) && d.date <= new Date(date[1])})
+            var filtered_data_by_year = dataset.filter(function(d) {return d.datetime >= start_year && d.datetime <= end_year})
 
-            filtered_data = filtered_data_by_day.filter(function(d, i){return i < threshold * length / 1000;})
+            filtered_data = filtered_data_by_year.filter(function(d, i){return i < threshold * length / 1000;})
 
             filtered_data.forEach(function(d) {
             var year = d.datetime;
@@ -260,7 +260,7 @@ const Histogram_and_Piechart = ({date}) => {
         }
         });
 
-     }, [date, svgRef.current]);
+     }, [startyear, endyear, svgRef.current]);
 
     return <Box><
         svg ref={svgRef} 

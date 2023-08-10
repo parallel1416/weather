@@ -1,12 +1,12 @@
 import React, { useRef, useEffect } from "react";
 import * as d3 from 'd3' 
 
-const LineChart = ({date}) => {
+const LineChart = ({startyear,endyear}) => {
   const svgRef = useRef(null);
 
   useEffect(() => {
     //////year range selection : pass in the props to re-render//////
-
+    var start_year={startyear}, end_year={endyear};
     ////////////////////////////////////////////////////////////////
 
 
@@ -39,7 +39,7 @@ const LineChart = ({date}) => {
           }
         )
 
-        var filtered_data = data.filter(function(d) {return d.date >= new Date(date[0]) && d.date <= new Date(date[1])})
+        var filtered_data = data.filter(function(d) {return d.date >= new Date(`${start_year}-01-01`) && d.date <= new Date(`${end_year}-01-01`)})
 
         var x = d3.scaleTime()
           .domain((d3.extent(filtered_data, function(d) { return d.date; })))
@@ -159,7 +159,7 @@ const LineChart = ({date}) => {
         });
     });
 
-  }, [date, svgRef.current]);
+  }, [startyear, endyear, svgRef.current]);
 
   return <svg ref={svgRef} />;
 };

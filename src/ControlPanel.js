@@ -25,7 +25,6 @@ function ControlPanel ({handleToggle}){
             <ToggleButton value={4}>Conditions</ToggleButton>
         </ToggleButtonGroup>
         <br></br>
-        <div><Button variant='contained' onClick={handleRender}>Render</Button></div>
         </Box>
         </>);
 }
