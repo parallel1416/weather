@@ -1,7 +1,7 @@
 import React from 'react';
 import * as echarts from "echarts"
 
-class Linkage extends React.Component{
+class Conditions extends React.Component{
     constructor(){
         super()
     }
@@ -25,10 +25,10 @@ class Linkage extends React.Component{
                 dataset: {
                     source: [
                         ['product', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023'],
-                        ['Clear', 141, 177, 101, 105, 111, 123, 113, 136, 145, 134, 63],
-                        ['Overcast', 3, 3, 6, 4, 1, 5, 4, 2, 4, 9, 13],
-                        ['Cloudy', 152, 131, 180, 190, 199, 180, 186, 156, 129, 167, 105],
-                        ['Rain/Snow', 69, 54, 78, 67, 54, 78, 62, 72, 87, 55, 34]
+                        ['Clear', 141, 177, 101, 105, 111, 123, 113, 136, 145, 134, 107],
+                        ['Overcast', 3, 3, 6, 4, 1, 5, 4, 2, 4, 9, 22],
+                        ['Cloudy', 152, 131, 180, 190, 199, 180, 186, 156, 129, 167, 178],
+                        ['Rain/Snow', 69, 54, 78, 67, 54, 78, 62, 72, 87, 55, 58]
                     ]
                 },
                 xAxis: { 
@@ -113,10 +113,10 @@ class Linkage extends React.Component{
     render(){
         return (
             <div className='ee'>
-                 <div id="main" style={{width: "600px",height:"400px"}}></div>
+                 <div id="main" style={{width: "600px",height:"500px"}}></div>
             </div>
         )
     }
 }
 
-export default Linkage
+export default Conditions
