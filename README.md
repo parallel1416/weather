@@ -12,11 +12,11 @@ This section is the brief record of every team member's contributions. For detai
 
 #### Xing Ping
 
-UI Designation, Data Visualization Framework Construction in React, Background Animation in Manim
+User Interface Designation, Data Visualization Framework Construction in React, Background Animation in Manim
 
 #### Guanyu Zhang
 
-Data Preprocessing, Interactive LineChart of Temperature in D3.js, Interactive Histogram and Piechart of # of Highest Temperature Days in D3.js, Framework Construction in React (Converting codes into React Components)
+Data Preprocessing, Interactive LineChart of Temperature in D3.js, Interactive Histogram and Piechart of # of Highest Temperature Days in D3.js, Framework Construction in React
 
 #### Lingmeng Lu
 
